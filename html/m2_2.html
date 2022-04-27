@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>layout 管理系统大布局 - Layui</title>
+    <link rel="stylesheet" href="../layui-v2.6.8/layui/css/layui.css">
+    <link rel="stylesheet" href="../cropper/cropper.css">
+    <link rel="stylesheet" href="../css/index.css">
+    <style>
+        .layui-body {
+            padding: 15px;
+        }
+
+
+        /* 设置卡片主体区域的宽度 */
+        .layui-card-body {
+            width: 500px;
+        }
+
+        /* 设置按钮行的样式 */
+        .row2 {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+
+        /* 设置裁剪区域的样式 */
+        .cropper-box {
+            width: 350px;
+            height: 350px;
+            background-color: cyan;
+            overflow: hidden;
+        }
+
+        /* 设置第一个预览区域的样式 */
+        .w100 {
+            width: 100px;
+            height: 100px;
+            background-color: gray;
+        }
+
+        /* 设置第二个预览区域的样式 */
+        .w50 {
+            width: 50px;
+            height: 50px;
+            background-color: gray;
+            margin-top: 50px;
+        }
+
+        /* 设置预览区域下方文本的样式 */
+        .size {
+            font-size: 12px;
+            color: gray;
+            text-align: center;
+        }
+
+        /* 设置图片行的样式 */
+        .row1 {
+            display: flex;
+        }
+
+        /* 设置 preview-box 区域的的样式 */
+        .preview-box {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            align-items: center;
+        }
+
+        /* 设置 img-preview 区域的样式 */
+        .img-preview {
+            overflow: hidden;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="layui-layout layui-layout-admin">
+        <!-- 头部 -->
+        <div class="layui-header">
+            <!-- 头部区域（可配合layui 已有的水平导航） -->
+            <ul class="layui-nav layui-layout-right" lay-filter="header-nav">
+                <li class="layui-nav-item layui-hide layui-show-md-inline-block">
+                    <a href="javascript:;" id="header-avatar">
+                        <div class="text-avatar">X</div>
+                        个人中心<span class="layui-nav-more"></span>
+                    </a>
+                    <dl class="layui-nav-child layui-anim layui-anim-upbit">
+                        <dd><a href="./m2_1.html" target="fm">基本资料</a></dd>
+                        <dd><a href="./m2_2.html" target="fm">更换头像</a></dd>
+                        <dd><a href="./m2_3.html" target="fm">重置密码</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item layui-hide-xs">
+                    <!-- 退出登录的链接 -->
+                    <a href="javascript:;" class="logout"><span class="iconfont icon-tuichu"></span>退出</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="layui-side layui-bg-black">
+            <div class="layui-side-scroll">
+                <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+                <div class="user-info-box">
+                    <div class="text-avatar">X</div>
+                    <span class="welcome">&nbsp;欢迎&nbsp; xie123456</span>
+                </div>
+
+                <!-- lay-shrink="all"  收缩菜单 -->
+                <ul class="layui-nav layui-nav-tree" lay-filter="test" lay-shrink="all">
+                    <li class="layui-nav-item">
+                        <a href="./index.html">
+                            <i class="layui-icon layui-icon-home"></i> 首页
+                        </a>
+                    </li>
+                    <!-- layui-this  选中 -->
+                    <li class="layui-nav-item">
+                        <a class="" href="javascript:;"><i class="layui-icon layui-icon-list"></i> 文章管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="./m1_1.html"><i class="layui-icon layui-icon-app"></i> menu
+                                    1</a></dd>
+                            <dd><a href="./m1_2.html"><i class="layui-icon layui-icon-app"></i> menu 2</a></dd>
+                            <dd><a href="./m1_3.html"><i class="layui-icon layui-icon-app"></i> menu 3</a></dd>
+                        </dl>
+                    </li>
+
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a href="javascript:;"><i class="layui-icon layui-icon-username"></i> 个人中心</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="./m2_1.html"><i class="layui-icon layui-icon-app"></i> list 1</a></dd>
+                            <dd class="layui-this"><a href="./m2_2.html"><i class="layui-icon layui-icon-app"></i> list
+                                    2</a></dd>
+                            <dd><a href="./m2_3.html"><i class="layui-icon layui-icon-app"></i> list 3</a></dd>
+                        </dl>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="layui-body">
+            <!-- 内容主体区域 -->
+            <div class="layui-card">
+                <div class="layui-card-header">更换头像</div>
+                <div class="layui-card-body">
+                    <!-- 头像裁剪区域 -->
+                    <!-- 第一行的图片裁剪和预览区域 -->
+                    <div class="row1">
+                        <!-- 图片裁剪区域 -->
+                        <div class="cropper-box">
+                            <!-- 这个 img 标签很重要，将来会把它初始化为裁剪区域 -->
+                            <img id="image" src="../img/avatar.jpg"
+                                style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <!-- 图片的预览区域 -->
+                        <div class="preview-box">
+                            <div>
+                                <!-- 宽高为 100px 的预览区域 -->
+                                <div class="img-preview w100"></div>
+                                <p class="size">100 x 100</p>
+                            </div>
+                            <div>
+                                <!-- 宽高为 50px 的预览区域 -->
+                                <div class="img-preview w50"></div>
+                                <p class="size">50 x 50</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 第二行的按钮区域 -->
+                    <div class="row2" style="justify-content: flex-start;">
+                        <!-- 选择图片的文件选择框 -->
+                        <!-- accept="image/*  格式限制，不是当前格式不给上传  *所有 -->
+                        <!-- accept="image/png  格式限制，不是当前格式不给上传 -->
+                        <input type="file" id="file" style="display: none;" accept="image/*">
+                        <button type="button" class="layui-btn" id="btnChooseImg">选择图片</button>
+                        <button type="button" class="layui-btn layui-btn-danger" id="btnUploadImg">上传头像</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-footer">
+            <!-- 底部固定区域 -->
+            底部固定区域
+        </div>
+    </div>
+
+    <script src="../layui-v2.6.8/layui/layui.js"></script>
+    <script>
+        //JS 
+        layui.use(['element', 'layer', 'util'], function () {
+            var element = layui.element
+                , layer = layui.layer
+                , util = layui.util
+                , $ = layui.$;
+
+            //头部事件
+            util.event('lay-header-event', {
+                //左侧菜单事件
+                menuLeft: function (othis) {
+                    layer.msg('展开左侧菜单的操作', { icon: 0 });
+                }
+                , menuRight: function () {
+                    layer.open({
+                        type: 1
+                        , content: '<div style="padding: 15px;">处理右侧面板的操作</div>'
+                        , area: ['260px', '100%']
+                        , offset: 'rt' //右上角
+                        , anim: 5
+                        , shadeClose: true
+                    });
+                }
+            });
+
+        });
+    </script>
+    <script src="../js/jquery-3.6.0.js"></script>
+    <script src="../cropper/Cropper.js"></script>
+    <script src="../cropper/jquery-cropper.js"></script>
+    <script src="../js/ajax_peizhi.js"></script>
+
+    <!-- 统一js -->
+    <script src="../js/tongyi.js"></script>
+
+    <!-- 这个页面的js -->
+    <script>
+        function abc(data) {
+            console.log(data);
+
+            // 判断是否存在，存在显示头像
+            if (data.data.user_pic) {
+                $('#image').attr('src', data.data.user_pic)
+                // $('#image').attr('display', 'block')
+            }
+
+
+            // 执行函数
+            aa()
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+        // 上传图片
+        function aa() {
+            // 1.1 获取裁剪区域的 DOM 元素
+            var $image = $('#image')
+            // 1.2 配置选项
+            const options = {
+                // 纵横比
+                aspectRatio: 1,
+                // 指定预览区域
+                preview: '.img-preview'
+            }
+
+            // 1.3 创建裁剪区域
+            $image.cropper(options)
+
+
+
+            // 点击上传的时候同时点input框
+            $('#btnChooseImg').click(function () {
+                $('#file').click()
+            })
+
+            // 监听file的改变
+            $('#file').on('change', function (e) {
+                console.log(e);
+                console.log(e.target);  //获取原生本身
+                console.log(e.target.files);    //获取上传的文件
+                let fileList = e.target.files[0];  //获取上传的文件
+                console.log(fileList);
+
+                // 判断图片是否存在
+                if (e.target.files.length === 0) {
+                    return layer.msg('请选择图片')
+                }
+
+                var newImgURL = URL.createObjectURL(fileList)   //创建路径
+
+                $image
+                    .cropper('destroy')      // 销毁旧的裁剪区域
+                    .attr('src', newImgURL)  // 重新设置图片路径
+                    .cropper(options)        // 重新初始化裁剪区域
+            })
+
+
+
+            // 监听确定上传图片
+            $('#btnUploadImg').on('click', function () {
+                // 将图片路径改为Brase64进制的地址
+                var dataURL = $image
+                    .cropper('getCroppedCanvas', { // 创建一个 Canvas 画布
+                        width: 100,
+                        height: 100
+                    })
+                    .toDataURL('image/png')       // 将 Canvas 画布上的内容，转化为 base64 格式的字符串
+
+
+                console.log(dataURL);
+                $.ajax({
+                    url: '/my/update/avatar',
+                    method: 'post',
+                    data: {
+                        avatar: dataURL
+                    },
+                    success: (data) => {
+                        // 失败
+                        if (data.status != 0) {
+                            return layer.msg(data.message)
+                        }
+
+
+                        // 成功
+                        layer.msg(data.message)
+                        $('.text-avatar').html(`<img src="${dataURL}" alt="" style="width:100%;border-radius:50%">`)
+                    },
+                    error: (err) => {
+                        console.log(err);
+                    }
+                })
+
+
+            })
+        }
+
+
+
+
+    </script>
+
+</body>
+
+</html>

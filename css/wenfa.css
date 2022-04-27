@@ -1,0 +1,35 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+.layui-card:last-child {
+  padding-bottom: 50px;
+}
+.layui-card-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.ipinp .layui-form-select .layui-input {
+  display: none;
+}
+
+.layui-form-select .layui-edge {
+  display: none;
+}
+
+.ql-toolbar.ql-snow + .ql-container.ql-snow {
+  height: 250px;
+}
+
+.fms {
+  display: flex;
+}
+
+.fbtn {
+  margin-left: 20px;
+}
+
+.tjan {
+  padding-bottom: 20px;
+}

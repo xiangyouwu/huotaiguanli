@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>layout 管理系统大布局 - Layui</title>
+    <link rel="stylesheet" href="../layui-v2.6.8/layui/css/layui.css">
+    <link rel="stylesheet" href="../css/index.css">
+    <style>
+        .layui-body {
+            padding: 15px;
+        }
+
+        .layui-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .layui-form {
+            padding: 15px 30px 0 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="layui-layout layui-layout-admin">
+        <!-- 头部 -->
+        <div class="layui-header">
+            <!-- 头部区域（可配合layui 已有的水平导航） -->
+            <ul class="layui-nav layui-layout-right" lay-filter="header-nav">
+                <li class="layui-nav-item layui-hide layui-show-md-inline-block">
+                    <a href="javascript:;" id="header-avatar">
+                        <div class="text-avatar">X</div>
+                        个人中心<span class="layui-nav-more"></span>
+                    </a>
+                    <dl class="layui-nav-child layui-anim layui-anim-upbit">
+                        <dd><a href="./m2_1.html" target="fm">基本资料</a></dd>
+                        <dd><a href="./m2_2.html" target="fm">更换头像</a></dd>
+                        <dd><a href="./m2_3.html" target="fm">重置密码</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item layui-hide-xs">
+                    <!-- 退出登录的链接 -->
+                    <a href="javascript:;" class="logout"><span class="iconfont icon-tuichu"></span>退出</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="layui-side layui-bg-black">
+            <div class="layui-side-scroll">
+                <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+                <div class="user-info-box">
+                    <div class="text-avatar">X</div>
+                    <span class="welcome">&nbsp;欢迎&nbsp; xie123456</span>
+                </div>
+
+                <!-- lay-shrink="all"  收缩菜单 -->
+                <ul class="layui-nav layui-nav-tree" lay-filter="test" lay-shrink="all">
+                    <li class="layui-nav-item">
+                        <a href="./index.html">
+                            <i class="layui-icon layui-icon-home"></i> 首页
+                        </a>
+                    </li>
+                    <!-- layui-this  选中 -->
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a class="" href="javascript:;"><i class="layui-icon layui-icon-list"></i> 文章管理</a>
+                        <dl class="layui-nav-child">
+                            <dd class="layui-this"><a href="./m1_1.html"><i class="layui-icon layui-icon-app"></i> menu
+                                    1</a></dd>
+                            <dd><a href="./m1_2.html"><i class="layui-icon layui-icon-app"></i> menu 2</a></dd>
+                            <dd><a href="./m1_3.html"><i class="layui-icon layui-icon-app"></i> menu 3</a></dd>
+                        </dl>
+                    </li>
+
+                    <li class="layui-nav-item">
+                        <a href="javascript:;"><i class="layui-icon layui-icon-username"></i> 个人中心</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="./m2_1.html"><i class="layui-icon layui-icon-app"></i> list 1</a></dd>
+                            <dd><a href="./m2_2.html"><i class="layui-icon layui-icon-app"></i> list 2</a></dd>
+                            <dd><a href="./m2_3.html"><i class="layui-icon layui-icon-app"></i> list 3</a></dd>
+                        </dl>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="layui-body">
+            <!-- 内容主体区域 -->
+            <div class="layui-card">
+                <div class="layui-card-header">
+                    <span>文章类别管理</span>
+                    <!-- 添加分类的按钮 -->
+                    <button type="button" class="layui-btn layui-btn-normal layui-btn-sm" id="btnShowAdd">添加分类</button>
+                </div>
+                <div class="layui-card-body">
+                    <!-- 表格区域 -->
+                    <table class="layui-table">
+                        <colgroup>
+                            <col width="150">
+                            <col>
+                            <col>
+                            <col width="200">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>分类名称</th>
+                                <th>分类别名</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-footer">
+            <!-- 底部固定区域 -->
+            底部固定区域
+        </div>
+    </div>
+
+    <script src="../layui-v2.6.8/layui/layui.js"></script>
+    <script>
+        //JS 
+        layui.use(['element', 'layer', 'util'], function () {
+            var element = layui.element
+                , layer = layui.layer
+                , util = layui.util
+                , $ = layui.$;
+
+            //头部事件
+            util.event('lay-header-event', {
+                //左侧菜单事件
+                menuLeft: function (othis) {
+                    layer.msg('展开左侧菜单的操作', { icon: 0 });
+                }
+                , menuRight: function () {
+                    layer.open({
+                        type: 1
+                        , content: '<div style="padding: 15px;">处理右侧面板的操作</div>'
+                        , area: ['260px', '100%']
+                        , offset: 'rt' //右上角
+                        , anim: 5
+                        , shadeClose: true
+                    });
+                }
+            });
+
+        });
+    </script>
+    <script src="../js/jquery-3.6.0.js"></script>
+    <script src="../js/ajax_peizhi.js"></script>
+
+    <!-- 统一js -->
+    <script src="../js/tongyi.js"></script>
+
+
+
+
+    <!-- 这个页面的js -->
+    <script>
+        function abc(data) {
+
+        }
+
+
+
+
+
+
+        // 渲染页面
+        function xuanran() {
+            $('tbody').html('');
+            $.ajax({
+                url: '/my/article/cates',
+                method: 'get',
+                data: {},
+                success: (res) => {
+                    console.log(res);
+
+                    res.data.forEach(item => {
+                        // console.log(item);
+                        $('tbody').append(`
+                            <tr>
+                                <td>${item.Id}</td>
+                                <td>${item.name}</td>
+                                <td>${item.alias}</td>
+                                <td>
+                                    <button type="button" class="layui-btn layui-btn-xs btn-edit" data-id="${item.Id}" >修改</button>
+                                    <button type="button" class="layui-btn layui-btn-danger layui-btn-xs btn-delete" data-id="${item.Id}">删除</button>
+                                </td>
+                            </tr>
+                        `);
+                    });
+
+                    $('.btn-edit').click(edlt); //修改
+                    $('.btn-delete').click(del);    //删除
+
+
+                }
+            })
+        }
+        xuanran()
+
+
+
+        // 修改
+        function edlt() {
+            let _this = this;
+            let Id = $(_this).parent().parent().children()[0].innerText;
+            let name = $(_this).parent().parent().children()[1].innerText;
+            let alias = $(_this).parent().parent().children()[2].innerText;
+
+
+
+            tanchu(name, alias)
+
+
+            // 修改
+            $('form').on('submit', function (e) {
+                e.preventDefault();
+
+                $.ajax({
+                    url: '/my/article/updatecate',
+                    method: 'post',
+                    data: {
+                        Id,
+                        name: $('.name1').val(),
+                        alias: $('.name2').val(),
+                    },
+                    success: (data) => {
+                        console.log(data);
+
+
+                        // 修改信息
+                        $(_this).parent().parent().children()[1].innerText = $('.name1').val();  //分类名称
+                        $(_this).parent().parent().children()[2].innerText = $('.name2').val();  //分类别名
+
+                        // 弹出框成功和关闭弹出层
+                        layer.msg(data.message)
+                        layer.close(index); //关闭
+                    },
+                    error: (err) => {
+                        console.log(err);
+                    }
+                })
+            })
+
+        }
+
+
+
+
+        // 删除
+        function del() {
+            let _this = this;
+            let yuans = $(_this).parent().parent();
+            let Id = $(_this).parent().parent().children()[0].innerText;
+
+
+            // 删除
+            $.ajax({
+                url: '/my/article/deletecate/' + Id,
+                method: 'get',
+                success: (res) => {
+                    console.log(res);
+
+                    // 页面删除和删除提示
+                    $(yuans).remove();
+                    layer.msg(res.message)
+                },
+                error: (err) => {
+                    console.log(err);
+                }
+            })
+        }
+
+
+
+
+
+        // 弹出框
+        var index;
+        function tanchu(name, alias) {
+            index = layer.open({
+                type: 1,
+                title: ['添加文章分类', 'background-color:#F8F8F8;'],
+                area: '500px',
+                content: `
+                    <form class="layui-form" action="">
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">分类名称</label>
+                            <div class="layui-input-block">
+                            <input type="text" name="title" value="${name ? name : ''}"  required  lay-verify="required" placeholder="请输入分类名称" autocomplete="off" class="layui-input name1">
+                            </div>
+                        </div>    
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">分类别名</label>
+                            <div class="layui-input-block">
+                            <input type="text" name="title" value="${alias ? alias : ''}" required  lay-verify="required" placeholder="请输入分类别名" autocomplete="off" class="layui-input name2">
+                            </div>
+                        </div>    
+                        <div class="layui-form-item">
+                            <div class="layui-input-block">
+                                <button class="layui-btn" lay-submit lay-filter="formDemo">确定提交</button>
+                                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                            </div>
+                        </div>
+                    </form>`
+            });
+        }
+
+
+
+        // 点击添加分类按钮
+        $('#btnShowAdd').on('click', function () {
+
+            tanchu();
+
+
+
+            $('form').on('submit', function (e) {
+                var e = e || window.e;
+                e.preventDefault();
+
+                // console.log($('.name1').val(), $('.name2').val());
+
+                $.ajax({
+                    url: '/my/article/addcates',
+                    method: 'post',
+                    data: {
+                        name: $('.name1').val(),
+                        alias: $('.name2').val()
+                    },
+                    success: (res) => {
+
+                        // 渲染页面
+                        xuanran()
+                        layer.msg(res.message)
+                        layer.close(index); //关闭
+                    },
+                    error: (err) => {
+                        console.log(err);
+                    }
+
+                })
+
+            })
+
+
+        })
+
+
+
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,35 @@
+@charset "UTF-8";
+* {
+  margin: 0;
+  padding: 0;
+}
+.war {
+  width: 100%;
+  height: 100%;
+  background-image: url(../img/360wallpaper.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50%;
+  position: absolute;
+}
+.zhuce {
+  width: 400px;
+  height: 310px;
+  background-color: rgba(255, 255, 255, 0.5);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.zhuce > p {
+  text-align: center;
+  font-size: 24px;
+  padding: 10px 0;
+}
+.layui-form {
+  width: 340px;
+  margin: 0 auto;
+}
+.zc {
+  display: none;
+}

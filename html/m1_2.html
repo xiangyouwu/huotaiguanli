@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>layout 管理系统大布局 - Layui</title>
+    <link rel="stylesheet" href="../layui-v2.6.8/layui/css/layui.css">
+    <link rel="stylesheet" href="../css/index.css">
+    <style>
+        .layui-body {
+            padding: 15px;
+        }
+
+        a {
+            color: #009688;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="layui-layout layui-layout-admin">
+        <!-- 头部 -->
+        <div class="layui-header">
+            <!-- 头部区域（可配合layui 已有的水平导航） -->
+            <ul class="layui-nav layui-layout-right" lay-filter="header-nav">
+                <li class="layui-nav-item layui-hide layui-show-md-inline-block">
+                    <a href="javascript:;" id="header-avatar">
+                        <div class="text-avatar">X</div>
+                        个人中心<span class="layui-nav-more"></span>
+                    </a>
+                    <dl class="layui-nav-child layui-anim layui-anim-upbit">
+                        <dd><a href="./m2_1.html" target="fm">基本资料</a></dd>
+                        <dd><a href="./m2_2.html" target="fm">更换头像</a></dd>
+                        <dd><a href="./m2_3.html" target="fm">重置密码</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item layui-hide-xs">
+                    <!-- 退出登录的链接 -->
+                    <a href="javascript:;" class="logout"><span class="iconfont icon-tuichu"></span>退出</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="layui-side layui-bg-black">
+            <div class="layui-side-scroll">
+                <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+                <div class="user-info-box">
+                    <div class="text-avatar">X</div>
+                    <span class="welcome">&nbsp;欢迎&nbsp; xie123456</span>
+                </div>
+
+                <!-- lay-shrink="all"  收缩菜单 -->
+                <ul class="layui-nav layui-nav-tree" lay-filter="test" lay-shrink="all">
+                    <li class="layui-nav-item">
+                        <a href="./index.html">
+                            <i class="layui-icon layui-icon-home"></i> 首页
+                        </a>
+                    </li>
+                    <!-- layui-this  选中 -->
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a class="" href="javascript:;"><i class="layui-icon layui-icon-list"></i> 文章管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="./m1_1.html"><i class="layui-icon layui-icon-app"></i> menu
+                                    1</a></dd>
+                            <dd class="layui-this"><a href="./m1_2.html"><i class="layui-icon layui-icon-app"></i> menu
+                                    2</a></dd>
+                            <dd><a href="./m1_3.html"><i class="layui-icon layui-icon-app"></i> menu 3</a></dd>
+                        </dl>
+                    </li>
+
+                    <li class="layui-nav-item">
+                        <a href="javascript:;"><i class="layui-icon layui-icon-username"></i> 个人中心</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="./m2_1.html"><i class="layui-icon layui-icon-app"></i> list 1</a></dd>
+                            <dd><a href="./m2_2.html"><i class="layui-icon layui-icon-app"></i> list 2</a></dd>
+                            <dd><a href="./m2_3.html"><i class="layui-icon layui-icon-app"></i> list 3</a></dd>
+                        </dl>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="layui-body">
+            <!-- 内容主体区域 -->
+            <div class="layui-card">
+                <div class="layui-card-header">文章列表</div>
+                <div class="layui-card-body">
+                    <!-- 筛选区域 -->
+                    <form class="layui-form layui-form-pane">
+                        <!-- 分类 -->
+                        <div class="layui-form-item layui-inline">
+                            <label class="layui-form-label">分类</label>
+                            <div class="layui-input-block">
+                                <!-- 文章分类的下拉菜单 -->
+                                <select name="cate_id" class="cate_id">
+                                    <option value="">请选择分类</option>
+                                </select>
+                                <div class="layui-unselect layui-form-select">
+                                    <div class="layui-select-title"><input type="text" placeholder="请选择分类" value=""
+                                            readonly="" class="layui-input layui-unselect"><i class="layui-edge"></i>
+                                    </div>
+                                    <dl class="layui-anim layui-anim-upbit">
+                                        <dd lay-value="" class="layui-select-tips">请选择分类</dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 状态 -->
+                        <div class="layui-form-item layui-inline">
+                            <label class="layui-form-label">状态</label>
+                            <div class="layui-input-block">
+                                <!-- 筛选状态的下拉菜单 -->
+                                <select name="state">
+                                    <option value="已发布">已发布</option>
+                                    <option value="草稿">草稿</option>
+                                </select>
+                                <div class="layui-unselect layui-form-select">
+                                    <div class="layui-select-title"><input type="text" placeholder="请选择状态" value=""
+                                            readonly="" class="layui-input layui-unselect"><i class="layui-edge"></i>
+                                    </div>
+                                    <dl class="layui-anim layui-anim-upbit">
+                                        <dd lay-value="已发布" class="">已发布</dd>
+                                        <dd lay-value="草稿" class="">草稿</dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 筛选按钮 -->
+                        <div class="layui-form-item layui-inline">
+                            <button class="layui-btn shai" lay-submit="" lay-filter="formDemo">筛选</button>
+                        </div>
+                        <!-- 重置按钮 -->
+                        <div class="layui-form-item layui-inline">
+                            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                        </div>
+                    </form>
+
+                    <!-- 表格区域 -->
+                    <table class="layui-table">
+                        <colgroup>
+                            <col>
+                            <col width="200">
+                            <col width="200">
+                            <col width="200">
+                            <col width="200">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>文章标题</th>
+                                <th>分类</th>
+                                <th>发表时间</th>
+                                <th>状态</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+
+                    <!-- 分页区域 -->
+                    <div id="test1"></div>
+                    <!-- <div id="page-box">
+                        <div class="layui-box layui-laypage layui-laypage-default" id="layui-laypage-1"><span
+                                class="layui-laypage-count">共 0 条</span><span class="layui-laypage-limits">
+                                <select lay-ignore="">
+                                    <option value="2" selected="">2 条/页</option>
+                                    <option value="5">5 条/页</option>
+                                    <option value="10">10 条/页</option>
+                                    <option value="15">15 条/页</option>
+                                    <option value="20">20 条/页</option>
+                                </select>
+                            </span>
+                            <a href="javascript:;" class="layui-laypage-prev layui-disabled" data-page="0">上一页</a>
+                            <a href="javascript:;" class="layui-laypage-next layui-disabled" data-page="2">下一页</a>
+                            <span class="layui-laypage-skip">到第
+                                <input type="text" min="1" value="1" class="layui-input">页
+                                <button type="button" class="layui-laypage-btn">确定</button>
+                            </span>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-footer">
+            <!-- 底部固定区域 -->
+            底部固定区域
+        </div>
+    </div>
+
+    <script src="../layui-v2.6.8/layui/layui.js"></script>
+    <script>
+        //JS 
+        layui.use(['element', 'layer', 'util'], function () {
+            var element = layui.element
+                , layer = layui.layer
+                , util = layui.util
+                , $ = layui.$;
+
+            //头部事件
+            util.event('lay-header-event', {
+                //左侧菜单事件
+                menuLeft: function (othis) {
+                    layer.msg('展开左侧菜单的操作', { icon: 0 });
+                }
+                , menuRight: function () {
+                    layer.open({
+                        type: 1
+                        , content: '<div style="padding: 15px;">处理右侧面板的操作</div>'
+                        , area: ['260px', '100%']
+                        , offset: 'rt' //右上角
+                        , anim: 5
+                        , shadeClose: true
+                    });
+                }
+            });
+
+        });
+    </script>
+    <script src="../js/jquery-3.6.0.js"></script>
+    <script src="../js/template-web.js"></script>
+    <script src="../js/ajax_peizhi.js"></script>
+
+    <!-- 统一js -->
+    <script src="../js/tongyi.js"></script>
+
+
+
+    <!-- 模板渲染分类 -->
+    <script type="text/html" id="tem1">
+        {{each data}}
+            <option value="{{$value.Id}}">{{$value.name}}</option>
+        {{/each}}
+    </script>
+
+    <!-- 模板渲染 -->
+    <script type="text/html" id="tem">
+        {{each data}}
+        <tr>
+            <td><a href="javascript:void(0);" data-id="{{$value.Id}}">{{$value.title}}</a></td>
+            <td>{{$value.cate_name}}</td>
+            <td>{{$value.pub_date}}</td>
+            <td>{{$value.state}}</td>
+            <td>
+                <button type="button" class="layui-btn layui-btn-danger layui-btn-xs btn-delete" data-id="{{$value.Id}}">删除</button>
+            </td>
+        </tr>
+        {{/each}}
+    </script>
+
+    <!-- 页面详情弹窗 -->
+    <script type="text/html" id="template-art">
+        <div>{{data.title}}</div>
+        <div>{{data.content}}</div>
+        <img src="http://www.liulongbin.top:3007{{data.cover_img}}" alt="">
+        <div>{{data.pub_date}}</div>
+        <div>{{data.state}}</div>
+    </script>
+
+
+
+    <!-- 这个页面的js -->
+    <script>
+        function abc(data) {
+            console.log(data);
+        }
+
+
+        // 获取文章分类
+        $.ajax({
+            url: '/my/article/cates',
+            method: 'get',
+            success: (data) => {
+                // console.log(data);
+
+                let tema = template('tem1', data);
+                $('.cate_id').html(tema);
+                let form = layui.form;
+                form.render()
+            },
+            error: (err) => {
+                console.log(err);
+            }
+        })
+
+
+
+
+
+
+        let qs = {
+            pagenum: 1,
+            pagesize: 2,
+            cate_id: '',
+            state: '',
+            cate_name: ''
+        }
+
+
+        // 渲染页面
+        function xuanran() {
+            $.ajax({
+                url: '/my/article/list',
+                method: 'get',
+                data: {
+                    pagenum: qs.pagenum,
+                    pagesize: qs.pagesize,
+                    cate_id: qs.cate_id,
+                    state: qs.state
+                },
+                success: (data) => {
+                    console.log(data);
+
+                    let tema = template('tem', data);
+                    $('tbody').html(tema);
+
+                    xlfy(data.total)
+                },
+                error: (err) => {
+                    console.log(err);
+                }
+            })
+        }
+        xuanran()
+
+
+        // 筛选
+        $('form').on('submit', function (e) {
+            e.preventDefault();
+
+            let cate_id = $('.cate_id').val();
+            let state = $('[name="state"]').val();
+
+
+            $.ajax({
+                url: '/my/article/list',
+                method: 'get',
+                data: {
+                    pagenum: 1,
+                    pagesize: 10,
+                    cate_id,
+                    state
+                },
+                success: (data) => {
+                    console.log(data);
+
+                    let tema = template('tem', data);
+                    $('tbody').html(tema);
+
+                },
+                error: (err) => {
+                    console.log(err);
+                }
+            })
+        })
+
+
+
+
+
+
+
+        // 分页
+        function xlfy(count) {
+            layui.use('laypage', function () {
+                var laypage = layui.laypage;
+
+                //执行一个laypage实例
+                laypage.render({
+                    elem: 'test1', //注意，这里的 test1 是 ID，不用加 # 号
+                    count, //数据总数，从服务端得到 
+                    limit: qs.pagesize,
+                    limits: [2, 5, 10, 15, 20],
+                    curr: qs.pagenum,   //当前页数
+                    layout: ['count', 'limit', 'prev', 'page', 'next', 'skip'],
+                    jump: function (obj, first) {
+                        // obj包含了当前分页的所有参数，比如
+                        // console.log(obj.curr);  //得到当前页
+                        // console.log(obj.limit);  //得到每页显示的条数
+
+                        // 重新赋值
+                        qs.pagenum = obj.curr,
+                            qs.pagesize = obj.limit
+
+                        // 首次不执行
+                        if (!first) {
+                            xuanran()
+                        }
+                    }
+                });
+            });
+        }
+
+
+        // 删除
+        $('tbody').on('click', '.btn-delete', function () {
+            let Id = $(this).attr('data-id');   //获取文章的id
+
+            // 询问用户是否删除数据
+            layer.confirm('确认删除？', { icon: 3, title: '提示' }, function (index) {
+
+                $.ajax({
+                    url: '/my/article/delete/' + Id,
+                    method: 'get',
+                    success: (data) => {
+                        console.log(data);
+
+
+                        layer.mag(data.message)
+                    }
+                })
+
+
+                layer.close(index);
+            })
+        })
+
+
+
+
+        // 点击出现文章
+        $('tbody').on('click', 'a', function () {
+
+
+            let Id = $(this).attr('data-id');
+
+            $.ajax({
+                url: '/my/article/' + Id,
+                method: 'get',
+                success: (data) => {
+                    console.log(data);
+
+                    layer.open({
+                        type: 1,
+                        area: ['85%', '85%'],
+                        title: '预览文章',
+                        content: template('template-art', data)
+                    })
+                }
+            })
+        })
+
+
+
+    </script>
+</body>
+
+</html>
